@@ -1,0 +1,65 @@
+
+services:
+  ubuntu-server1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ubuntu-server1
+    ports:
+      - "2221:22"
+    restart: unless-stopped
+
+  ubuntu-server2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ubuntu-server2
+    ports:
+      - "2222:22"
+    restart: unless-stopped
+
+  ubuntu-server3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ubuntu-server3
+    ports:
+      - "2223:22"
+    restart: unless-stopped
+
+  ubuntu-server4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ubuntu-server4
+    ports:
+      - "2224:22"
+    restart: unless-stopped
+
+  ubuntu-server5:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ubuntu-server5
+    ports:
+      - "2225:22"
+    restart: unless-stopped
+
+  ansible-control:
+    build:
+      context: .
+      dockerfile: Dockerfile.control
+    container_name: ansible-control
+    depends_on:
+      - ubuntu-server1
+      - ubuntu-server2
+      - ubuntu-server3
+      - ubuntu-server4
+      - ubuntu-server5
+    volumes:
+      - ./playbooks:/ansible/playbooks:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+  
+ 
